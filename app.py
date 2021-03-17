@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import datetime
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -122,7 +123,7 @@ def start_stop():
     
     # Add results to dictionaries and compile
     tobs = []
-    for min_tob, avg_tob, max_tob in results:
+    for min_tob, avg_tob, max_tob in result:
         tob_dict = {}
         tob_dict['TMIN'] = min_tob
         tob_dict['TAVG'] = avg_tob
