@@ -8,9 +8,10 @@ from sqlalchemy import create_engine, func
 
 # Set up
 app = Flask(__name__)
-engine = create_engine("sqlite:///hawaii.sqlite")
+engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 Base = automap_base()
 Base.prepare(engine, reflect=True)
+
 Measurement = Base.classes.measurement
 Station = Base.classes.station
 
@@ -22,8 +23,8 @@ def home():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/<start><br/>"
-        f"/api/v1.0/<start>/<end>")
+        f"/api/v1.0/(start)<br/>"
+        f"/api/v1.0/(start)/(end)")
  
 # Precipitation route
 @app.route("/api/v1.0/precipitation")
@@ -96,7 +97,7 @@ def tobs():
 
 @app.route('/api/v1.0/<start>')
 def start():
-
+    start = dt.datetime.strptime(start, '%Y-%m-%d')
     # Query the database for: Min temp, Max temp, Avg temp
     session = Session(engine)
     result = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs))\
@@ -118,6 +119,11 @@ def start():
 def start_stop():
     # Query the database for: Min temp, Max temp, Avg temp
     session = Session(engine)
+
+    # Format query input
+    start = dt.datetime.strptime(start, '%Y-%m-%d')
+    end = dt.datetime.strptime(end, '%Y-%m-%d')
+
     result = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs))\
         .filter(Measurement.date >= start).filter(Measurement.date <= end).all()
     
