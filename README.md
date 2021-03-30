@@ -1,6 +1,6 @@
 # sqlalchemy-weather
 
-Climate analysis using SQLAlchemy on [database](Resources/hawaii.sqlite) containing temperature observations in Hawaii using ORM queries, Pandas, and Matplotlib.
+Climate analysis using SQLAlchemy to query a [database](Resources/hawaii.sqlite) containing temperature observations in Hawaii using ORM queries, Pandas, and Matplotlib.
 
 # Exploratory precipitation analysis
 
@@ -14,13 +14,15 @@ This script queries the database to find the station with the highest number of 
 
 ![station-histogram](Images/most_active.png)
 
-
-
 - - -
 
 # Climate App
 
-Flask API based on the above queries. 
+Flask app that uses SQLAlchemy to query the database and return jsonified results for the following data: 
+* Precipitation date and amount
+* A list of stations 
+* Precipitation data for the most recent year in the database
+* The minimum, maximum, and average precipitation for the start and (optional) end dates. 
 
 ## Tools used
 Python, SQL Alchemy, Pandas, Matplotlib, Flask, Jsonify, Datetime

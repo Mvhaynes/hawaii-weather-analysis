@@ -7,7 +7,7 @@ from sqlalchemy import create_engine, func
 
 
 # Set up
-app.Flask(__name__)
+app = Flask(__name__)
 engine = create_engine("sqlite:///hawaii.sqlite")
 Base = automap_base()
 Base.prepare(engine, reflect=True)
@@ -51,7 +51,7 @@ def stations():
     # Query stations
     session = Session(engine)
     results = session.query(Station.station).all()
-    sessionn.close()
+    session.close()
 
     # Add results to dictionary
     stations = []
@@ -104,7 +104,7 @@ def start():
     
     # Add results to dictionaries and compile
     tobs = []
-    for min_tob, avg_tob, max_tob in results:
+    for min_tob, avg_tob, max_tob in result:
         tob_dict = {}
         tob_dict['TMIN'] = min_tob
         tob_dict['TAVG'] = avg_tob
